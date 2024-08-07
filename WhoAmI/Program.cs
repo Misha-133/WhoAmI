@@ -13,7 +13,6 @@ app.MapGet("/", (ctx) =>
 {
     var ip = ctx.Connection.RemoteIpAddress;
     var ua = ctx.Request.Headers.UserAgent;
-    logger.LogInformation($"Request from {ip} with user agent {ua}");
     return ctx.Response.WriteAsync($"Your Ip: {ip}\nYour user agent: {ua}");
 });
 
