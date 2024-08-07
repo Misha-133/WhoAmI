@@ -1,21 +1,20 @@
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddRazorPages();
-
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
 }
-app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
+app.MapGet("/", (ctx) =>
+{
+    var ip = ctx.Connection.RemoteIpAddress;
+    var ua = ctx.Request.Headers.UserAgent;
+    logger.LogInformation($"Request from {ip} with user agent {ua}");
+    return ctx.Response.WriteAsync($"Your Ip: {ip}\nYour user agent: {ua}");
+});
 
-app.MapRazorPages();
-
-app.Run();
+await app.RunAsync();
