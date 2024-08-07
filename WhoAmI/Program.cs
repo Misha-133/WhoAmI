@@ -1,4 +1,4 @@
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateSlimBuilder(args);
 
 var app = builder.Build();
 
@@ -6,8 +6,6 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
 }
-
-app.UseRouting();
 
 app.MapGet("/", (ctx) =>
 {
